@@ -8,9 +8,6 @@ using System.Threading.Tasks;
 
 namespace demowebapi.Controllers
 {
-    /// <summary>
-    /// API các truy vấn dữ liệu Northwind Database
-    /// </summary>
     [ApiController]
     [Route("api/[controller]")]
     public class Bt309Controller : ControllerBase
@@ -22,10 +19,6 @@ namespace demowebapi.Controllers
             _context = context;
         }
 
-        /// <summary>
-        /// API 1: Đếm số lượng khách hàng theo từng quốc gia
-        /// </summary>
-        /// <returns>Danh sách quốc gia với số lượng khách hàng</returns>
         [HttpGet("1")]
         public async Task<ActionResult> Api1()
         {
@@ -37,10 +30,6 @@ namespace demowebapi.Controllers
             return Ok(result);
         }
 
-        /// <summary>
-        /// API 2: Tính tổng số đơn hàng của từng nhân viên
-        /// </summary>
-        /// <returns>Danh sách nhân viên với số lượng đơn hàng</returns>
         [HttpGet("2")]
         public async Task<ActionResult> Api2()
         {
@@ -56,10 +45,6 @@ namespace demowebapi.Controllers
             return Ok(result);
         }
 
-        /// <summary>
-        /// API 3: Tính trung bình đơn giá của mỗi danh mục sản phẩm
-        /// </summary>
-        /// <returns>Danh sách danh mục với giá trung bình</returns>
         [HttpGet("3")]
         public async Task<ActionResult> Api3()
         {
@@ -76,10 +61,6 @@ namespace demowebapi.Controllers
             return Ok(result);
         }
 
-        /// <summary>
-        /// API 4: Tìm số lượng sản phẩm trong mỗi danh mục
-        /// </summary>
-        /// <returns>Danh sách danh mục với số lượng sản phẩm</returns>
         [HttpGet("4")]
         public async Task<ActionResult> Api4()
         {
@@ -96,10 +77,6 @@ namespace demowebapi.Controllers
             return Ok(result);
         }
 
-        /// <summary>
-        /// API 5: Tính tổng số tiền bán được của mỗi sản phẩm
-        /// </summary>
-        /// <returns>Danh sách sản phẩm với tổng doanh thu</returns>
         [HttpGet("5")]
         public async Task<ActionResult> Api5()
         {
@@ -116,10 +93,6 @@ namespace demowebapi.Controllers
             return Ok(result);
         }
 
-        /// <summary>
-        /// API 6: Liệt kê 5 sản phẩm có đơn giá cao nhất
-        /// </summary>
-        /// <returns>Danh sách 5 sản phẩm đắt nhất</returns>
         [HttpGet("6")]
         public async Task<ActionResult> Api6()
         {
@@ -131,10 +104,6 @@ namespace demowebapi.Controllers
             return Ok(result);
         }
 
-        /// <summary>
-        /// API 7: Liệt kê 5 sản phẩm có đơn giá thấp nhất
-        /// </summary>
-        /// <returns>Danh sách 5 sản phẩm rẻ nhất</returns>
         [HttpGet("7")]
         public async Task<ActionResult> Api7()
         {
@@ -147,10 +116,6 @@ namespace demowebapi.Controllers
             return Ok(result);
         }
 
-        /// <summary>
-        /// API 8: Tìm các sản phẩm có đơn giá từ 50 đến 100
-        /// </summary>
-        /// <returns>Danh sách sản phẩm trong khoảng giá 50-100</returns>
         [HttpGet("8")]
         public async Task<ActionResult> Api8()
         {
@@ -162,10 +127,6 @@ namespace demowebapi.Controllers
             return Ok(result);
         }
 
-        /// <summary>
-        /// API 9: Tìm các khách hàng có tên bắt đầu bằng chữ "A"
-        /// </summary>
-        /// <returns>Danh sách khách hàng có tên bắt đầu bằng A</returns>
         [HttpGet("9")]
         public async Task<ActionResult> Api9()
         {
@@ -177,10 +138,6 @@ namespace demowebapi.Controllers
             return Ok(result);
         }
 
-        /// <summary>
-        /// API 10: Tìm đơn hàng có ngày đặt hàng trong năm 1997
-        /// </summary>
-        /// <returns>Danh sách đơn hàng năm 1997</returns>
         [HttpGet("10")]
         public async Task<ActionResult> Api10()
         {
@@ -192,10 +149,6 @@ namespace demowebapi.Controllers
             return Ok(result);
         }
 
-        /// <summary>
-        /// API 11: Tính doanh thu của từng đơn hàng (Quantity * UnitPrice * (1 - Discount))
-        /// </summary>
-        /// <returns>Danh sách đơn hàng với tổng doanh thu</returns>
         [HttpGet("11")]
         public async Task<ActionResult> Api11()
         {
@@ -211,10 +164,6 @@ namespace demowebapi.Controllers
             return Ok(result);
         }
 
-        /// <summary>
-        /// API 12: Tính tuổi của từng nhân viên (dựa trên BirthDate)
-        /// </summary>
-        /// <returns>Danh sách nhân viên với tuổi</returns>
         [HttpGet("12")]
         public async Task<ActionResult> Api12()
         {
@@ -232,10 +181,6 @@ namespace demowebapi.Controllers
             return Ok(result);
         }
 
-        /// <summary>
-        /// API 13: Hiển thị số năm làm việc của mỗi nhân viên (từ HireDate đến hiện tại)
-        /// </summary>
-        /// <returns>Danh sách nhân viên với năm kinh nghiệm</returns>
         [HttpGet("13")]
         public async Task<ActionResult> Api13()
         {
@@ -253,10 +198,6 @@ namespace demowebapi.Controllers
             return Ok(result);
         }
 
-        /// <summary>
-        /// API 14: Tính tổng doanh thu của từng khách hàng
-        /// </summary>
-        /// <returns>Danh sách khách hàng với tổng doanh thu</returns>
         [HttpGet("14")]
         public async Task<ActionResult> Api14()
         {
@@ -273,10 +214,6 @@ namespace demowebapi.Controllers
             return Ok(result);
         }
 
-        /// <summary>
-        /// API 15: Tính tổng doanh thu của từng năm
-        /// </summary>
-        /// <returns>Danh sách năm với tổng doanh thu</returns>
         [HttpGet("15")]
         public async Task<ActionResult> Api15()
         {
@@ -294,10 +231,6 @@ namespace demowebapi.Controllers
             return Ok(result);
         }
 
-        /// <summary>
-        /// API 16: Tìm sản phẩm có đơn giá lớn hơn đơn giá trung bình
-        /// </summary>
-        /// <returns>Danh sách sản phẩm có giá trên trung bình</returns>
         [HttpGet("16")]
         public async Task<ActionResult> Api16()
         {
@@ -310,10 +243,6 @@ namespace demowebapi.Controllers
             return Ok(result);
         }
 
-        /// <summary>
-        /// API 17: Tìm khách hàng có số lượng đơn hàng lớn hơn trung bình
-        /// </summary>
-        /// <returns>Danh sách khách hàng có đơn hàng trên trung bình</returns>
         [HttpGet("17")]
         public async Task<ActionResult> Api17()
         {
@@ -331,10 +260,6 @@ namespace demowebapi.Controllers
             return Ok(result);
         }
 
-        /// <summary>
-        /// API 18: Tìm nhân viên có tổng số đơn hàng nhiều nhất
-        /// </summary>
-        /// <returns>Nhân viên có nhiều đơn hàng nhất</returns>
         [HttpGet("18")]
         public async Task<ActionResult> Api18()
         {
@@ -347,10 +272,6 @@ namespace demowebapi.Controllers
             return Ok(result);
         }
 
-        /// <summary>
-        /// API 19: Tìm các đơn hàng chứa sản phẩm có đơn giá > 100
-        /// </summary>
-        /// <returns>Danh sách đơn hàng với sản phẩm giá > 100</returns>
         [HttpGet("19")]
         public async Task<ActionResult> Api19()
         {
@@ -363,10 +284,6 @@ namespace demowebapi.Controllers
             return Ok(result);
         }
 
-        /// <summary>
-        /// API 20: Tìm danh mục có nhiều hơn 10 sản phẩm
-        /// </summary>
-        /// <returns>Danh sách danh mục có > 10 sản phẩm</returns>
         [HttpGet("20")]
         public async Task<ActionResult> Api20()
         {
@@ -379,10 +296,6 @@ namespace demowebapi.Controllers
             return Ok(result);
         }
 
-        /// <summary>
-        /// API 21: Tìm tất cả sản phẩm chưa từng được bán
-        /// </summary>
-        /// <returns>Danh sách sản phẩm không có trong OrderDetails</returns>
         [HttpGet("21")]
         public async Task<ActionResult> Api21()
         {
@@ -395,10 +308,6 @@ namespace demowebapi.Controllers
             return Ok(result);
         }
 
-        /// <summary>
-        /// API 22: Tìm khách hàng chưa từng đặt đơn hàng nào
-        /// </summary>
-        /// <returns>Danh sách khách hàng không có đơn hàng</returns>
         [HttpGet("22")]
         public async Task<ActionResult> Api22()
         {
@@ -411,10 +320,6 @@ namespace demowebapi.Controllers
             return Ok(result);
         }
 
-        /// <summary>
-        /// API 23: Hiển thị 3 nhân viên có nhiều đơn hàng nhất
-        /// </summary>
-        /// <returns>Danh sách 3 nhân viên hàng đầu</returns>
         [HttpGet("23")]
         public async Task<ActionResult> Api23()
         {
@@ -427,10 +332,6 @@ namespace demowebapi.Controllers
             return Ok(result);
         }
 
-        /// <summary>
-        /// API 24: Hiển thị danh sách các khách hàng có nhiều hơn 5 đơn hàng
-        /// </summary>
-        /// <returns>Danh sách khách hàng có > 5 đơn hàng</returns>
         [HttpGet("24")]
         public async Task<ActionResult> Api24()
         {
@@ -443,10 +344,6 @@ namespace demowebapi.Controllers
             return Ok(result);
         }
 
-        /// <summary>
-        /// API 25: Liệt kê đơn hàng và tổng doanh thu của từng đơn
-        /// </summary>
-        /// <returns>Danh sách đơn hàng với tổng doanh thu chi tiết</returns>
         [HttpGet("25")]
         public async Task<ActionResult> Api25()
         {
