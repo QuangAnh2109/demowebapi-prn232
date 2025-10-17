@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 namespace demowebapi.Controllers
 {
     [Route("api/[controller]")]
-    [ApiController
+    [ApiController]
     public class ProductsController : ControllerBase
     {
         private readonly NorthwindContext _northwindContext;
