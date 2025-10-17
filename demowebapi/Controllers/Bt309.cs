@@ -45,10 +45,10 @@ namespace demowebapi.Controllers
         public async Task<ActionResult> Api2()
         {
             var result = await _context.Orders
-                .GroupBy(o => new { o.EmployeeID })
+                .GroupBy(o => new { o.EmployeeId })
                 .Select(g => new
                 {
-                    EmployeeID = g.Key.EmployeeID,
+                    EmployeeId = g.Key.EmployeeId,
                     TotalOrders = g.Count()
                 })
                 .OrderByDescending(x => x.TotalOrders)
@@ -64,10 +64,10 @@ namespace demowebapi.Controllers
         public async Task<ActionResult> Api3()
         {
             var result = await _context.Products
-                .GroupBy(p => new { p.CategoryID, CategoryName = p.Category.CategoryName })
+                .GroupBy(p => new { p.CategoryId, CategoryName = p.Category.CategoryName })
                 .Select(g => new
                 {
-                    CategoryID = g.Key.CategoryID,
+                    CategoryId = g.Key.CategoryId,
                     CategoryName = g.Key.CategoryName,
                     AveragePrice = g.Average(p => (decimal?)p.UnitPrice) ?? 0
                 })
@@ -84,10 +84,10 @@ namespace demowebapi.Controllers
         public async Task<ActionResult> Api4()
         {
             var result = await _context.Products
-                .GroupBy(p => new { p.CategoryID, CategoryName = p.Category.CategoryName })
+                .GroupBy(p => new { p.CategoryId, CategoryName = p.Category.CategoryName })
                 .Select(g => new
                 {
-                    CategoryID = g.Key.CategoryID,
+                    CategoryId = g.Key.CategoryId,
                     CategoryName = g.Key.CategoryName,
                     ProductCount = g.Count()
                 })
@@ -104,12 +104,12 @@ namespace demowebapi.Controllers
         public async Task<ActionResult> Api5()
         {
             var result = await _context.OrderDetails
-                .GroupBy(od => new { od.ProductID, ProductName = od.Product.ProductName })
+                .GroupBy(od => new { od.ProductId, ProductName = od.Product.ProductName })
                 .Select(g => new
                 {
-                    ProductID = g.Key.ProductID,
+                    ProductId = g.Key.ProductId,
                     ProductName = g.Key.ProductName,
-                    TotalSales = g.Sum(od => (decimal?)od.Quantity * od.UnitPrice * (1 - od.Discount)) ?? 0
+                    TotalSales = g.Sum(od => (decimal?)od.Quantity * od.UnitPrice * (1 - (decimal)od.Discount)) ?? 0
                 })
                 .OrderByDescending(x => x.TotalSales)
                 .ToListAsync();
@@ -126,7 +126,7 @@ namespace demowebapi.Controllers
             var result = await _context.Products
                 .OrderByDescending(p => p.UnitPrice)
                 .Take(5)
-                .Select(p => new { p.ProductID, p.ProductName, p.UnitPrice })
+                .Select(p => new { p.ProductId, p.ProductName, p.UnitPrice })
                 .ToListAsync();
             return Ok(result);
         }
@@ -142,7 +142,7 @@ namespace demowebapi.Controllers
                 .Where(p => p.UnitPrice > 0)
                 .OrderBy(p => p.UnitPrice)
                 .Take(5)
-                .Select(p => new { p.ProductID, p.ProductName, p.UnitPrice })
+                .Select(p => new { p.ProductId, p.ProductName, p.UnitPrice })
                 .ToListAsync();
             return Ok(result);
         }
@@ -156,7 +156,7 @@ namespace demowebapi.Controllers
         {
             var result = await _context.Products
                 .Where(p => p.UnitPrice >= 50 && p.UnitPrice <= 100)
-                .Select(p => new { p.ProductID, p.ProductName, p.UnitPrice })
+                .Select(p => new { p.ProductId, p.ProductName, p.UnitPrice })
                 .OrderBy(p => p.UnitPrice)
                 .ToListAsync();
             return Ok(result);
@@ -171,7 +171,7 @@ namespace demowebapi.Controllers
         {
             var result = await _context.Customers
                 .Where(c => c.ContactName.StartsWith("A"))
-                .Select(c => new { c.CustomerID, c.CompanyName, c.ContactName })
+                .Select(c => new { c.CustomerId, c.CompanyName, c.ContactName })
                 .OrderBy(c => c.ContactName)
                 .ToListAsync();
             return Ok(result);
@@ -186,7 +186,7 @@ namespace demowebapi.Controllers
         {
             var result = await _context.Orders
                 .Where(o => o.OrderDate.HasValue && o.OrderDate.Value.Year == 1997)
-                .Select(o => new { o.OrderID, o.CustomerID, o.OrderDate })
+                .Select(o => new { o.OrderId, o.CustomerId, o.OrderDate })
                 .OrderBy(o => o.OrderDate)
                 .ToListAsync();
             return Ok(result);
@@ -200,11 +200,11 @@ namespace demowebapi.Controllers
         public async Task<ActionResult> Api11()
         {
             var result = await _context.OrderDetails
-                .GroupBy(od => od.OrderID)
+                .GroupBy(od => od.OrderId)
                 .Select(g => new
                 {
-                    OrderID = g.Key,
-                    TotalRevenue = g.Sum(od => (decimal?)od.Quantity * od.UnitPrice * (1 - od.Discount)) ?? 0
+                    OrderId = g.Key,
+                    TotalRevenue = g.Sum(od => (decimal?)od.Quantity * od.UnitPrice * (1 - (decimal)od.Discount)) ?? 0
                 })
                 .OrderByDescending(x => x.TotalRevenue)
                 .ToListAsync();
@@ -221,7 +221,7 @@ namespace demowebapi.Controllers
             var result = await _context.Employees
                 .Select(e => new
                 {
-                    e.EmployeeID,
+                    e.EmployeeId,
                     e.FirstName,
                     e.LastName,
                     BirthDate = e.BirthDate,
@@ -242,7 +242,7 @@ namespace demowebapi.Controllers
             var result = await _context.Employees
                 .Select(e => new
                 {
-                    e.EmployeeID,
+                    e.EmployeeId,
                     e.FirstName,
                     e.LastName,
                     HireDate = e.HireDate,
@@ -261,12 +261,12 @@ namespace demowebapi.Controllers
         public async Task<ActionResult> Api14()
         {
             var result = await _context.Orders
-                .Join(_context.OrderDetails, o => o.OrderID, od => od.OrderID, (o, od) => new { o, od })
-                .GroupBy(x => x.o.CustomerID)
+                .Join(_context.OrderDetails, o => o.OrderId, od => od.OrderId, (o, od) => new { o, od })
+                .GroupBy(x => x.o.CustomerId)
                 .Select(g => new
                 {
-                    CustomerID = g.Key,
-                    TotalRevenue = g.Sum(x => (decimal?)x.od.Quantity * x.od.UnitPrice * (1 - x.od.Discount)) ?? 0
+                    CustomerId = g.Key,
+                    TotalRevenue = g.Sum(x => (decimal?)x.od.Quantity * x.od.UnitPrice * (1 - (decimal)x.od.Discount)) ?? 0
                 })
                 .OrderByDescending(x => x.TotalRevenue)
                 .ToListAsync();
@@ -282,12 +282,12 @@ namespace demowebapi.Controllers
         {
             var result = await _context.Orders
                 .Where(o => o.ShippedDate.HasValue)
-                .Join(_context.OrderDetails, o => o.OrderID, od => od.OrderID, (o, od) => new { o, od })
+                .Join(_context.OrderDetails, o => o.OrderId, od => od.OrderId, (o, od) => new { o, od })
                 .GroupBy(x => x.o.ShippedDate.Value.Year)
                 .Select(g => new
                 {
                     Year = g.Key,
-                    TotalRevenue = g.Sum(x => (decimal?)x.od.Quantity * x.od.UnitPrice * (1 - x.od.Discount)) ?? 0
+                    TotalRevenue = g.Sum(x => (decimal?)x.od.Quantity * x.od.UnitPrice * (1 - (decimal)x.od.Discount)) ?? 0
                 })
                 .OrderBy(x => x.Year)
                 .ToListAsync();
@@ -304,7 +304,7 @@ namespace demowebapi.Controllers
             var avgPrice = await _context.Products.AverageAsync(p => (decimal?)p.UnitPrice) ?? 0;
             var result = await _context.Products
                 .Where(p => p.UnitPrice > avgPrice)
-                .Select(p => new { p.ProductID, p.ProductName, p.UnitPrice, AveragePrice = avgPrice })
+                .Select(p => new { p.ProductId, p.ProductName, p.UnitPrice, AveragePrice = avgPrice })
                 .OrderByDescending(p => p.UnitPrice)
                 .ToListAsync();
             return Ok(result);
@@ -318,13 +318,13 @@ namespace demowebapi.Controllers
         public async Task<ActionResult> Api17()
         {
             var avgOrders = await _context.Orders
-                .GroupBy(o => o.CustomerID)
+                .GroupBy(o => o.CustomerId)
                 .Select(g => new { Count = g.Count() })
                 .AverageAsync(x => (decimal?)x.Count) ?? 0;
 
             var result = await _context.Orders
-                .GroupBy(o => new { o.CustomerID, CustomerName = o.Customer.CompanyName })
-                .Select(g => new { CustomerID = g.Key.CustomerID, CustomerName = g.Key.CustomerName, OrderCount = g.Count() })
+                .GroupBy(o => new { o.CustomerId, CustomerName = o.Customer.CompanyName })
+                .Select(g => new { CustomerId = g.Key.CustomerId, CustomerName = g.Key.CustomerName, OrderCount = g.Count() })
                 .Where(x => x.OrderCount > (int)avgOrders)
                 .OrderByDescending(x => x.OrderCount)
                 .ToListAsync();
@@ -339,8 +339,8 @@ namespace demowebapi.Controllers
         public async Task<ActionResult> Api18()
         {
             var result = await _context.Orders
-                .GroupBy(o => new { o.EmployeeID, EmployeeName = o.Employee.FirstName + " " + o.Employee.LastName })
-                .Select(g => new { EmployeeID = g.Key.EmployeeID, EmployeeName = g.Key.EmployeeName, OrderCount = g.Count() })
+                .GroupBy(o => new { o.EmployeeId, EmployeeName = o.Employee.FirstName + " " + o.Employee.LastName })
+                .Select(g => new { EmployeeId = g.Key.EmployeeId, EmployeeName = g.Key.EmployeeName, OrderCount = g.Count() })
                 .OrderByDescending(x => x.OrderCount)
                 .Take(1)
                 .ToListAsync();
@@ -356,9 +356,9 @@ namespace demowebapi.Controllers
         {
             var result = await _context.OrderDetails
                 .Where(od => od.UnitPrice > 100)
-                .Select(od => new { od.OrderID, od.ProductID, od.Product.ProductName, od.UnitPrice })
+                .Select(od => new { od.OrderId, od.ProductId, od.Product.ProductName, od.UnitPrice })
                 .Distinct()
-                .OrderBy(x => x.OrderID)
+                .OrderBy(x => x.OrderId)
                 .ToListAsync();
             return Ok(result);
         }
@@ -371,8 +371,8 @@ namespace demowebapi.Controllers
         public async Task<ActionResult> Api20()
         {
             var result = await _context.Products
-                .GroupBy(p => new { p.CategoryID, CategoryName = p.Category.CategoryName })
-                .Select(g => new { CategoryID = g.Key.CategoryID, CategoryName = g.Key.CategoryName, ProductCount = g.Count() })
+                .GroupBy(p => new { p.CategoryId, CategoryName = p.Category.CategoryName })
+                .Select(g => new { CategoryId = g.Key.CategoryId, CategoryName = g.Key.CategoryName, ProductCount = g.Count() })
                 .Where(x => x.ProductCount > 10)
                 .OrderBy(x => x.CategoryName)
                 .ToListAsync();
@@ -386,10 +386,10 @@ namespace demowebapi.Controllers
         [HttpGet("21")]
         public async Task<ActionResult> Api21()
         {
-            var soldProductIds = await _context.OrderDetails.Select(od => od.ProductID).Distinct().ToListAsync();
+            var soldProductIds = await _context.OrderDetails.Select(od => od.ProductId).Distinct().ToListAsync();
             var result = await _context.Products
-                .Where(p => !soldProductIds.Contains(p.ProductID))
-                .Select(p => new { p.ProductID, p.ProductName, p.UnitPrice })
+                .Where(p => !soldProductIds.Contains(p.ProductId))
+                .Select(p => new { p.ProductId, p.ProductName, p.UnitPrice })
                 .OrderBy(p => p.ProductName)
                 .ToListAsync();
             return Ok(result);
@@ -402,10 +402,10 @@ namespace demowebapi.Controllers
         [HttpGet("22")]
         public async Task<ActionResult> Api22()
         {
-            var customerWithOrders = await _context.Orders.Select(o => o.CustomerID).Distinct().ToListAsync();
+            var customerWithOrders = await _context.Orders.Select(o => o.CustomerId).Distinct().ToListAsync();
             var result = await _context.Customers
-                .Where(c => !customerWithOrders.Contains(c.CustomerID))
-                .Select(c => new { c.CustomerID, c.CompanyName, c.ContactName })
+                .Where(c => !customerWithOrders.Contains(c.CustomerId))
+                .Select(c => new { c.CustomerId, c.CompanyName, c.ContactName })
                 .OrderBy(c => c.CompanyName)
                 .ToListAsync();
             return Ok(result);
@@ -419,8 +419,8 @@ namespace demowebapi.Controllers
         public async Task<ActionResult> Api23()
         {
             var result = await _context.Orders
-                .GroupBy(o => new { o.EmployeeID, EmployeeName = o.Employee.FirstName + " " + o.Employee.LastName })
-                .Select(g => new { EmployeeID = g.Key.EmployeeID, EmployeeName = g.Key.EmployeeName, OrderCount = g.Count() })
+                .GroupBy(o => new { o.EmployeeId, EmployeeName = o.Employee.FirstName + " " + o.Employee.LastName })
+                .Select(g => new { EmployeeId = g.Key.EmployeeId, EmployeeName = g.Key.EmployeeName, OrderCount = g.Count() })
                 .OrderByDescending(x => x.OrderCount)
                 .Take(3)
                 .ToListAsync();
@@ -435,8 +435,8 @@ namespace demowebapi.Controllers
         public async Task<ActionResult> Api24()
         {
             var result = await _context.Orders
-                .GroupBy(o => new { o.CustomerID, CompanyName = o.Customer.CompanyName })
-                .Select(g => new { CustomerID = g.Key.CustomerID, CompanyName = g.Key.CompanyName, OrderCount = g.Count() })
+                .GroupBy(o => new { o.CustomerId, CompanyName = o.Customer.CompanyName })
+                .Select(g => new { CustomerId = g.Key.CustomerId, CompanyName = g.Key.CompanyName, OrderCount = g.Count() })
                 .Where(x => x.OrderCount > 5)
                 .OrderByDescending(x => x.OrderCount)
                 .ToListAsync();
@@ -451,12 +451,12 @@ namespace demowebapi.Controllers
         public async Task<ActionResult> Api25()
         {
             var result = await _context.OrderDetails
-                .GroupBy(od => od.OrderID)
+                .GroupBy(od => od.OrderId)
                 .Select(g => new
                 {
-                    OrderID = g.Key,
+                    OrderId = g.Key,
                     ItemCount = g.Count(),
-                    TotalRevenue = g.Sum(od => (decimal?)od.Quantity * od.UnitPrice * (1 - od.Discount)) ?? 0
+                    TotalRevenue = g.Sum(od => (decimal?)od.Quantity * od.UnitPrice * (1 - (decimal)od.Discount)) ?? 0
                 })
                 .OrderByDescending(x => x.TotalRevenue)
                 .ToListAsync();
