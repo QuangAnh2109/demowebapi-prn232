@@ -88,7 +88,7 @@ namespace demowebapi.Controllers
                 .Select(g => new
                 {
                     CategoryId = g.Key.CategoryId,
-                    CategoryName = g.Key.CategoryName,
+                    CategoryName = g.Key.CategoryName
                     ProductCount = g.Count()
                 })
                 .OrderBy(x => x.CategoryName)
